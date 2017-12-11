@@ -1,4 +1,4 @@
-var mutipartParser = require("../node-multipart-parser.js")
+let multipart_parser = require("../index.js")
 
 
 function read_header_name(name) {
@@ -30,7 +30,7 @@ function read_data(data) {
     console.log("read_data: " + data);
 }
 
-var callbacks = new mutipartParser.callbacks();
+var callbacks = {};
 callbacks.on_header_field = read_header_name;
 callbacks.on_header_value = read_header_value;
 callbacks.on_part_data = read_data;
@@ -40,7 +40,7 @@ callbacks.on_part_data_end = part_data_end;
 callbacks.on_body_end = body_end;
 
 var boundary = "--Asrf456BGe4h";
-var parser = new mutipartParser.parser(boundary, callbacks);
+var parser = new multipart_parser(boundary, callbacks);
 
 parser.execute("--Asrf456BGe4h\x0d\x0a");
 parser.execute("Content-Disposition: form-data; name=\"DestAddress\"\x0d\x0a");

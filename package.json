@@ -1,0 +1,9 @@
+{
+  "name": "purejs-multipart-parser",
+  "version": "0.4.0",
+  "description": "purejs-multipart-parser",
+  "main": "index.js",
+  "author": {
+    "name": "Igor Savchenko"
+  }
+}
