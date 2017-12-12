@@ -1,5 +1,18 @@
 
-let multipart_parser = function (boundary, cb) {
+
+function removeQuotes(s) {
+    if (s.length >= 2) {
+        let firstChar = s.substring(0, 1);
+        let lastChar = s.substring(s.length - 1);
+        if (firstChar === "'" || firstChar === '"' && firstChar === lastChar) {
+            return s.substring(1, s.length - 1);
+        }
+    }
+
+    return s;
+}
+
+function multipart_parser(boundary, settings) {
     this.data = {};
     this.index = 0;
     this.state = 2 /* s_start */;
@@ -7,13 +20,13 @@ let multipart_parser = function (boundary, cb) {
     this.currentHeaderName = String();
     this.currentHeaderValue = String();
 
-    this.callbacks = cb;
+    this.callbacks = settings;
 
     this.lookbehind = new Buffer(16);
 
     this.multipart_boundary = boundary;
     this.boundary_length = boundary.length;
-};
+}
 
 multipart_parser.prototype.execute = function (buf, len) {
     let LF = 10;
@@ -243,6 +256,7 @@ multipart_parser.prototype.execute = function (buf, len) {
 
     return len;
 };
+
 
 
 module.exports = multipart_parser;
